@@ -7,10 +7,10 @@ class Osoba(models.Model):
 
 
 class Telefon(models.Model):
-    osoba = models.ForeignKey(Osoba, editable=False, on_delete=models.CASCADE)
+    osoba = models.ForeignKey(Osoba, editable=False, related_name='telefon', on_delete=models.CASCADE)
     telefon = models.CharField(max_length=50)
 
 
 class Email(models.Model):
-    osoba = models.ForeignKey(Osoba, editable=False, on_delete=models.CASCADE)
+    osoba = models.ForeignKey(Osoba, editable=False, related_name='email', on_delete=models.CASCADE)
     email = models.EmailField()

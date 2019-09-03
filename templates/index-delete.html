@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Delete</title>
 </head>
 <body>
+ <form method="POST">
+        {% csrf_token %}
+        <h2>Delete {{ user.imie }} ?</h2>
+        <button type="submit">Delete</button>
+        <button onclick="location.href='{% url 'list_users' %}'" type="button">
+         Back</button>
+    </form>
+
 
 </body>
 </html>

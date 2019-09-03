@@ -1,23 +1,73 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Phone book</title>
 </head>
 <body>
-    <ul>
-        {% for user in users %}
-            <a href="{% url 'update_user' user.id %}">
-                <li> {{ user.imie }}</li>
-            </a>
-            <a href="{% url 'create_phone' user.id %}">
-                <li> {{ user.telefon_set.telefon }}</li>
-            </a>
 
-        {% endfor %}
-    </ul>
+ <div class="row">
+   <form class="col s12" method="GET" action="{% url 'query' %}">
+       <div class="row">
+           <div class="input-field col s10">
+               <input name="q" value="{{ request.GET.q }}" placeholder="Search">
+           </div>
+           <div class="input-field col s1">
+                  <button class="btn" type="submit"> Search</button>
+           </div>
+           <div class="input-field col s1">
+                   <a href="{% url 'create_user'%}"  class="waves-effect waves-light btn-small" >New User</a>
+           </div>
+       </div>
+   </form>
+</div>
 
-    <a href="{% url 'create_user'  %}">New User</a>
+
+
+
+
+
+
+      <table>
+        <thead>
+          <tr>
+              <th> </th>
+              <th> </th>
+              <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+           {% for user in users %}
+              <tr>
+                <td><b>{{ user.imie }}</b></td>
+                <td><b>{{ user.nazwisko }}</b></td>
+                <td>
+                    <a href="{% url 'create_phone' user.id %}" class="waves-effect waves-light btn-small">Add Phone</a>
+                    <a href="{% url 'create_email' user.id %}" class="waves-effect waves-light btn-small">Add Email</a>
+                    <a href="{% url 'update_user' user.id %}"  class="waves-effect waves-light btn-small">Edit</a>
+                    <a href="{% url 'delete_user' user.id %}"  class="waves-effect waves-light btn-small">Delete</a>
+                </td>
+              </tr>
+               <tr>
+                <td>{% for tel in user.telefon.all %}
+                    {{ tel.telefon }}
+                    {% endfor %}</td>
+                <td> {% for tel in user.email.all %}
+                    {{ tel.email }}
+                    {% endfor %}</td>
+               </tr>
+           {% endfor %}
+        </tbody>
+    </table>
 
 </body>
 </html>
+
+
+
+
